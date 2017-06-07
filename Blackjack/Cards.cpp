@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include <iostream>
 #include "blackjack.h"
-#include <array>
 #include <random>
 
 // Prints the value of a card.
@@ -57,30 +56,32 @@ int getRandom(int min, int max)
 }
 
 // Shuffle a deck of cards random
-void shuffleDeck(std::array<Card, 52> &deck) {
-	for (Card &card : deck) {
-		swapCard(card, deck[getRandom(0, 51)]);
+void shuffleDeck(Card deck[], int size) {
+	for (int i = 0; i < size; ++i) {
+		swapCard(deck[i], deck[getRandom(0, size - 1)]);
 	}
 }
 
 // Returns an ordered deck. The bool is used to return a shuffled deck.
-std::array<Card, 52> getDeck(bool shuffled) {
-	std::array<Card, 52> deck;
-	for (int suit = 0; suit < static_cast<int>(Suit::MAX_SUITS); ++suit) {
-		for (int rank = 0; rank < static_cast<int>(Rank::MAX_RANKS); ++rank) {
-			deck[suit * static_cast<int>(Rank::MAX_RANKS) + rank] = { static_cast<Rank>(rank), static_cast<Suit>(suit) };
+Card* getDeck(int amount, bool shuffled) {
+	Card *deck = new Card[amount * 52];
+	for (int i = 0; i < amount; ++i) {
+		for (int suit = 0; suit < static_cast<int>(Suit::MAX_SUITS); ++suit) {
+			for (int rank = 0; rank < static_cast<int>(Rank::MAX_RANKS); ++rank) {
+				deck[i * 52 + suit * static_cast<int>(Rank::MAX_RANKS) + rank] = { static_cast<Rank>(rank), static_cast<Suit>(suit) };
+			}
 		}
 	}
 	if (shuffled) {
-		shuffleDeck(deck);
+		shuffleDeck(deck, amount * 52);
 	}
 	return deck;
 }
 
 // Print the entire deck
-void printDeck(const std::array<Card, 52> &deck) {
-	for (const Card &card : deck) {
-		printCard(card);
+void printDeck(const Card deck[], int size) {
+	for (int i = 0; i < size; ++i) {
+		printCard(deck[i]);
 	}
 	std::cout << '\n';
 }

@@ -1,5 +1,4 @@
 #pragma once
-#include <array>
 
 #ifndef CARDS
 #define CARDS
@@ -36,9 +35,9 @@ struct Card {
 
 void printCard(const Card card, bool newline = false);
 void swapCard(Card &first, Card &second);
-void shuffleDeck(std::array<Card, 52> &deck);
-std::array<Card, 52> getDeck(bool shuffled = false);
-void printDeck(const std::array<Card, 52> &deck);
+void shuffleDeck(Card deck[], int size);
+Card* getDeck(int amount = 1, bool shuffled = false);
+void printDeck(const Card deck[], int size);
 int getCardValue(const Card &card, const bool &aceEleven = true);
 
 #endif // !CARDS
