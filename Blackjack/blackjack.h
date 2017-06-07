@@ -36,7 +36,7 @@ struct Card {
 void printCard(const Card card, bool newline = false);
 void swapCard(Card &first, Card &second);
 void shuffleDeck(Card deck[], int size);
-Card* getDeck(int amount = 1, bool shuffled = false);
+Card* getDeck(int amount = 1, bool shuffled = true);
 void printDeck(const Card deck[], int size);
 int getCardValue(const Card &card, const bool &aceEleven = true);
 

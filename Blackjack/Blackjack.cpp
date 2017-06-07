@@ -122,7 +122,7 @@ int main()
 				if (deckCount > 6) deckCount = 6;
 				if (deckCount < 1) deckCount = 1;
 				do {
-					bool playerWin = playBlackjack(getDeck(deckCount, true));
+					bool playerWin = playBlackjack(getDeck(deckCount));
 
 					if (playerWin) {
 						std::cout << "Congratulations! You win!!!" << '\n';
