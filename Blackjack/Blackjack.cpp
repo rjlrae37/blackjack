@@ -20,7 +20,7 @@ char getPlayerChoice()
 
 // Deal a card, update scores, inform the player about it
 void dealCard(int &score, Card *&cardPtr, int &aces, bool player) {
-	score += (*(cardPtr - 1)).getCardValue();
+	score += (*(cardPtr++)).getCardValue();
 	if ((*(cardPtr - 1)).getRank() == Card::Rank::ACE) {
 		++aces;
 	}
