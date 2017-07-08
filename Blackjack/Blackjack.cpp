@@ -19,9 +19,9 @@ char getPlayerChoice()
 }
 
 // Deal a card, update scores, inform the player about it
-void dealCard(int &score, const Card *&cardPtr, int &aces, bool player) {
-	score += getCardValue(*cardPtr++);
-	if ((*(cardPtr - 1)).rank == Rank::ACE) {
+void dealCard(int &score, Card *&cardPtr, int &aces, bool player) {
+	score += (*(cardPtr - 1)).getCardValue();
+	if ((*(cardPtr - 1)).getRank() == Card::Rank::ACE) {
 		++aces;
 	}
 
@@ -35,14 +35,14 @@ void dealCard(int &score, const Card *&cardPtr, int &aces, bool player) {
 		verb = "has";
 	}
 	std::cout << name << " got ";
-	printCard(*(cardPtr - 1));
+    (*(cardPtr - 1)).printCard();
 	std::cout << "and " << verb << " a score of " << score << ".\n";
 }
 
 // Game logic
-bool playBlackjack(const Card deck[]) {
+bool playBlackjack(Card deck[]) {
 	// Setup
-	const Card *cardPtr = &deck[0];
+	Card *cardPtr = &deck[0];
 	int dealerScore = 0;
 	int playerScore = 0;
 	int dealerAces = 0;
