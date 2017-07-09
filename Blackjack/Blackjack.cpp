@@ -5,6 +5,7 @@
 #include "blackjack.h"
 #include <iostream>
 #include <string>
+#include <vector>
 
 // Get player input
 char getPlayerChoice()
@@ -40,9 +41,9 @@ void dealCard(int &score, Card *&cardPtr, int &aces, bool player) {
 }
 
 // Game logic
-bool playBlackjack(Card deck[]) {
+bool playBlackjack(Deck deck) {
 	// Setup
-	Card *cardPtr = &deck[0];
+	Card *cardPtr = &deck.cards[0];
 	int dealerScore = 0;
 	int playerScore = 0;
 	int dealerAces = 0;
@@ -97,7 +98,6 @@ bool playBlackjack(Card deck[]) {
 		}
 	}
 
-	delete[] deck;
 	return (playerScore > dealerScore);
 }
 
@@ -122,7 +122,7 @@ int main()
 				if (deckCount > 6) deckCount = 6;
 				if (deckCount < 1) deckCount = 1;
 				do {
-					bool playerWin = playBlackjack(getDeck(deckCount));
+                    bool playerWin = playBlackjack(Deck(deckCount));
 
 					if (playerWin) {
 						std::cout << "Congratulations! You win!!!" << '\n';

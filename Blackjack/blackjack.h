@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 #ifndef CARDS
 #define CARDS
@@ -40,9 +41,17 @@ public:
     Suit getSuit() const;
 };
 
-void swapCard(Card &first, Card &second);
-void shuffleDeck(Card deck[], int size);
-Card* getDeck(int amount = 1, bool shuffled = true);
-void printDeck(const Card deck[], int size);
+class Deck {
+public:
+    std::vector<Card> cards;
+    Deck();
+    Deck(int amount, bool shuffled = true);
+    void swapCard(Card &first, Card &second);
+    void shuffleDeck(int size);
+    void printDeck(int size);
+private:
+    int getRandom(int min, int max);
+};
+
 
 #endif // !CARDS
