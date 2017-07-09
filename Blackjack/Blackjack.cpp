@@ -5,6 +5,7 @@
 #include "blackjack.h"
 #include <iostream>
 #include <string>
+#include <vector>
 
 // Get player input
 char getPlayerChoice()
@@ -19,9 +20,9 @@ char getPlayerChoice()
 }
 
 // Deal a card, update scores, inform the player about it
-void dealCard(int &score, const Card *&cardPtr, int &aces, bool player) {
-	score += getCardValue(*cardPtr++);
-	if ((*(cardPtr - 1)).rank == Rank::ACE) {
+void dealCard(int &score, Card *&cardPtr, int &aces, bool player) {
+	score += (*(cardPtr++)).getCardValue();
+	if ((*(cardPtr - 1)).getRank() == Card::Rank::ACE) {
 		++aces;
 	}
 
@@ -35,14 +36,14 @@ void dealCard(int &score, const Card *&cardPtr, int &aces, bool player) {
 		verb = "has";
 	}
 	std::cout << name << " got ";
-	printCard(*(cardPtr - 1));
+    (*(cardPtr - 1)).printCard();
 	std::cout << "and " << verb << " a score of " << score << ".\n";
 }
 
 // Game logic
-bool playBlackjack(const Card deck[]) {
+bool playBlackjack(Deck deck) {
 	// Setup
-	const Card *cardPtr = &deck[0];
+	Card *cardPtr = &deck.cards[0];
 	int dealerScore = 0;
 	int playerScore = 0;
 	int dealerAces = 0;
@@ -97,7 +98,6 @@ bool playBlackjack(const Card deck[]) {
 		}
 	}
 
-	delete[] deck;
 	return (playerScore > dealerScore);
 }
 
@@ -122,7 +122,7 @@ int main()
 				if (deckCount > 6) deckCount = 6;
 				if (deckCount < 1) deckCount = 1;
 				do {
-					bool playerWin = playBlackjack(getDeck(deckCount));
+                    bool playerWin = playBlackjack(Deck(deckCount));
 
 					if (playerWin) {
 						std::cout << "Congratulations! You win!!!" << '\n';
